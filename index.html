@@ -727,24 +727,24 @@
             </div>
 
             <!-- Formulaire Netlify -->
-            <form name="contact" method="POST" data-netlify="true" class="formulaire-contact">
-                <input type="hidden" name="form-name" value="contact">
-                <div class="groupe-formulaire">
-                    <label for="nom">Nom</label>
-                    <input type="text" id="nom" name="nom" required>
-                </div>
-                <div class="groupe-formulaire">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="groupe-formulaire">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="bouton-envoyer">
-                    <i class="fas fa-paper-plane"></i> Envoyer
-                </button>
-            </form>
+           <form name="contact" method="POST" data-netlify="true" action="/merci.html" class="formulaire-contact">
+    <input type="hidden" name="form-name" value="contact">
+    <div class="groupe-formulaire">
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" name="nom" required>
+    </div>
+    <div class="groupe-formulaire">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+    <div class="groupe-formulaire">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+    </div>
+    <button type="submit" class="bouton-envoyer">
+        <i class="fas fa-paper-plane"></i> Envoyer
+    </button>
+</form>
         </div>
     </section>
 
@@ -803,18 +803,7 @@
             observer.observe(el);
         });
 
-        // Gestion du formulaire
-const formulaire = document.querySelector('.formulaire-contact');
-formulaire.addEventListener('submit', function(e) {
-    // Netlify gère l'envoi,
-    const nom = document.getElementById('nom').value;
-    const email = document.getElementById('email').value;
-    
-    if (nom.trim() === '' || email.trim() === '') {
-        e.preventDefault();
-        alert('Veuillez remplir tous les champs requis');
-    }
-});
+     
     </script>
 </body>
 </html>

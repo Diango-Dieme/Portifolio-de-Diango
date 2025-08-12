@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diango FD | Développeur Stellar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --espace-noir: #0a0e17;
+            --bleu-neon: #64f8ff;
+            --bleu-galaxie: #122C4F;
+            --blanc-cosmos: #e6f1ff;
+            --transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--espace-noir);
+            color: var(--blanc-cosmos);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Fond Étoilé */
+        .espace {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .etoile {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: scintiller infinite alternate;
+        }
+
+        @keyframes scintiller {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        /* Navigation Spatiale */
+        .navigation {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5vw;
+            z-index: 1000;
+            background-color: rgba(10, 14, 23, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            color: var(--bleu-neon);
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px var(--bleu-neon);
+        }
+
+        .menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .menu-lien {
+            color: var(--blanc-cosmos);
+            text-decoration: none;
+            font-size: 1.1rem;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        .menu-lien::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--bleu-neon);
+            transition: var(--transition);
+            box-shadow: 0 0 10px var(--bleu-neon);
+        }
+
+        .menu-lien:hover {
+            color: var(--bleu-neon);
+            text-shadow: 0 0 5px var(--bleu-neon);
+        }
+
+        .menu-lien:hover::after {
+            width: 100%;
+        }
+
+        .menu-burger {
+            display: none;
+            cursor: pointer;
+            color: var(--blanc-cosmos);
+            font-size: 1.5rem;
+        }
+
+        /* Hero Spatial */
+        .hero {
+            min-height: 100vh;
+            padding: 0 5vw;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contenu-hero {
+            max-width: 600px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-titre {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1.5rem;
+            color: var(--bleu-neon);
+            text-shadow: 0 0 15px var(--bleu-neon);
+        }
+
+        .hero-sous-titre {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            margin-bottom: 1rem;
+            color: var(--blanc-cosmos);
+        }
+
+        .hero-description {
+            color: var(--blanc-cosmos);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.8;
+        }
+
+        .bouton-cta {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: var(--bleu-neon);
+            border: 1px solid var(--bleu-neon);
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            box-shadow: 0 0 15px rgba(100, 248, 255, 0.3);
+        }
+
+        .bouton-cta:hover {
+            background: rgba(100, 248, 255, 0.1);
+            box-shadow: 0 0 30px rgba(100, 248, 255, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* Sections */
+        .section {
+            padding: 8rem 5vw;
+            position: relative;
+            background-color: rgba(10, 14, 23, 0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .titre-section {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            color: var(--bleu-neon);
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 0 10px var(--bleu-neon);
+        }
+
+        .titre-section::before {
+            content: '// ';
+            color: var(--bleu-neon);
+            font-family: 'Courier New', monospace;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        /* À Propos */
+        .texte-a-propos p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: var(--blanc-cosmos);
+            opacity: 0.9;
+        }
+
+        /* Compétences */
+        .grille-competences {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .categorie-competence {
+            background: rgba(18, 44, 79, 0.3);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid rgba(100, 248, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .categorie-competence:hover {
+            transform: translateY(-10px);
+            border-color: var(--bleu-neon);
+            box-shadow: 0 10px 30px rgba(100, 248, 255, 0.2);
+        }
+
+        .titre-categorie {
+            color: var(--bleu-neon);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-shadow: 0 0 5px var(--bleu-neon);
+        }
+
+        .liste-competences {
+            list-style: none;
+        }
+
+        .item-competence {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed rgba(100, 248, 255, 0.2);
+        }
+
+        .icone-langage {
+            width: 24px;
+            height: 24px;
+            filter: drop-shadow(0 0 5px var(--bleu-neon));
+        }
+
+        /* Projets */
+        .grille-projets {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .carte-projet {
+            background: rgba(18, 44, 79, 0.3);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(100, 248, 255, 0.1);
+            position: relative;
+        }
+
+        .carte-projet::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(100, 248, 255, 0.1) 0%, transparent 100%);
+            z-index: -1;
+        }
+
+        .carte-projet:hover {
+            transform: translateY(-10px);
+            border-color: var(--bleu-neon);
+            box-shadow: 0 20px 30px rgba(100, 248, 255, 0.3);
+        }
+
+        .image-projet {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .image-projet::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(10, 14, 23, 0.1), rgba(10, 14, 23, 0.8));
+        }
+
+        .contenu-projet {
+            padding: 2rem;
+        }
+
+        .titre-projet {
+            color: var(--bleu-neon);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 5px var(--bleu-neon);
+        }
+
+        .contenu-projet p {
+            margin-bottom: 1rem;
+            color: var(--blanc-cosmos);
+            opacity: 0.9;
+        }
+
+        .contenu-projet strong {
+            color: var(--bleu-neon);
+        }
+
+        .technos-projet {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .badge-techno {
+            background: rgba(100, 248, 255, 0.1);
+            color: var(--bleu-neon);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid var(--bleu-neon);
+        }
+
+        .liens-projet {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .lien-projet {
+            color: var(--bleu-neon);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+            text-shadow: 0 0 5px var(--bleu-neon);
+        }
+
+        .lien-projet:hover {
+            color: var(--blanc-cosmos);
+            text-shadow: 0 0 10px var(--bleu-neon);
+        }
+
+        /* Contact */
+        .conteneur-contact {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .infos-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .item-contact {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(18, 44, 79, 0.3);
+            border-radius: 10px;
+            border: 1px solid rgba(100, 248, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .item-contact:hover {
+            border-color: var(--bleu-neon);
+            box-shadow: 0 0 20px rgba(100, 248, 255, 0.2);
+        }
+
+        .icone-contact {
+            font-size: 1.5rem;
+            color: var(--bleu-neon);
+            text-shadow: 0 0 10px var(--bleu-neon);
+        }
+
+        .formulaire-contact {
+            background: rgba(18, 44, 79, 0.3);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid rgba(100, 248, 255, 0.2);
+        }
+
+        .groupe-formulaire {
+            margin-bottom: 1.5rem;
+        }
+
+        .formulaire-contact label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--bleu-neon);
+        }
+
+        .formulaire-contact input,
+        .formulaire-contact textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(10, 14, 23, 0.7);
+            border: 1px solid var(--bleu-galaxie);
+            border-radius: 5px;
+            color: var(--blanc-cosmos);
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .formulaire-contact input:focus,
+        .formulaire-contact textarea:focus {
+            outline: none;
+            border-color: var(--bleu-neon);
+            box-shadow: 0 0 10px rgba(100, 248, 255, 0.3);
+        }
+
+        .bouton-envoyer {
+            background: transparent;
+            color: var(--bleu-neon);
+            border: 1px solid var(--bleu-neon);
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .bouton-envoyer:hover {
+            background: rgba(100, 248, 255, 0.1);
+            box-shadow: 0 0 20px rgba(100, 248, 255, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                flex-direction: column;
+                background: var(--espace-noir);
+                width: 100%;
+                padding: 2rem;
+                transition: var(--transition);
+                border-top: 1px solid var(--bleu-neon);
+            }
+
+            .menu.actif {
+                right: 0;
+            }
+
+            .menu-burger {
+                display: block;
+            }
+
+            .conteneur-contact {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="espace" id="espace"></div>
+
+    <nav class="navigation">
+        <div class="logo">DFD</div>
+        <div class="menu" id="menuPrincipal">
+            <a href="#apropos" class="menu-lien">À Propos</a>
+            <a href="#competences" class="menu-lien">Compétences</a>
+            <a href="#projets" class="menu-lien">Projets</a>
+            <a href="#contact" class="menu-lien">Contact</a>
+        </div>
+        <div class="menu-burger" id="burger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="contenu-hero">
+            <h1 class="hero-titre">Diango Famara Dieme</h1>
+            <h2 class="hero-sous-titre">Développeur Stellar</h2>
+            <p class="hero-description">
+                Je code l'avenir une ligne à la fois. Passionné par la création d'expériences web 
+                innovantes qui repoussent les limites du numérique.
+            </p>
+            <a href="#projets" class="bouton-cta">
+                <i class="fas fa-rocket"></i> Explorer mes projets
+            </a>
+        </div>
+    </section>
+
+    <section id="apropos" class="section">
+        <h2 class="titre-section">À Propos</h2>
+        <div class="texte-a-propos">
+            <p>
+                <strong>Bien plus qu'un simple développeur</strong>, je me passionne pour la création de solutions web qui ont un impact réel. 
+                Diplômé en Informatique et Développement d'Applications, mon parcours m'a appris à naviguer entre la rigueur technique du back-end et la créativité du front-end. 
+            </p>
+            <p>
+                <strong>Je crois qu'un bon site web</strong> ne se contente pas d'être fonctionnel, il doit aussi raconter une histoire et offrir une expérience utilisateur mémorable.
+                J'aime particulièrement relever de nouveaux défis, explorer de nouvelles technologies et collaborer avec des personnes passionnées.
+            </p>
+            <p>
+                <strong id="competences">Que vous ayez besoin</strong> de créer un site vitrine percutant pour votre entreprise, de moderniser une plateforme existante ou de transformer une idée en une application web concrète, 
+                je suis là pour vous accompagner de la conception à la mise en ligne.
+            </p>
+        </div>
+
+        <h3  class="titre-section" style="margin-top: 4rem;">Mes Compétences</h3>
+        <div class="grille-competences">
+            <div class="categorie-competence">
+                <h4 class="titre-categorie">
+                    <i class="fas fa-code"></i>
+                    Front-End
+                </h4>
+                <ul class="liste-competences">
+                    <li class="item-competence">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="icone-langage" alt="HTML5">
+                        HTML5
+                    </li>
+                    <li class="item-competence">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="icone-langage" alt="CSS3">
+                        CSS3 (Flexbox/Grid)
+                    </li>
+                    <li class="item-competence">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="icone-langage" alt="JavaScript">
+                        JavaScript
+                    </li>
+                </ul>
+            </div>
+            <div class="categorie-competence">
+                <h4 class="titre-categorie">
+                    <i class="fas fa-server"></i>
+                    Back-End
+                </h4>
+                <ul class="liste-competences">
+                    <li class="item-competence">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" class="icone-langage" alt="PHP">
+                        PHP
+                    </li>
+                    <li class="item-competence">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" class="icone-langage" alt="MySQL">
+                        MySQL
+                    </li>
+                </ul>
+            </div>
+            <div class="categorie-competence">
+                <h4 class="titre-categorie">
+                    <i class="fas fa-mobile-alt"></i>
+                    Mobile
+                </h4>
+                <ul class="liste-competences">
+                    <li class="item-competence">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" class="icone-langage" alt="Kotlin">
+                        Kotlin 
+                    </li>
+                    <li class="item-competence">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" class="icone-langage" alt="Flutter">
+                        Flutter 
+                    </li>
+                </ul>
+            </div>
+            <div class="categorie-competence">
+                <h4 class="titre-categorie">
+                    <i class="fas fa-tools"></i>
+                    Outils
+                </h4>
+                <ul class="liste-competences">
+                    <li class="item-competence">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="icone-langage" alt="Git">
+                        Git/GitHub
+                    </li>
+                    <li class="item-competence">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" class="icone-langage" alt="VS Code">
+                        VS Code
+                    </li>
+                    <li class="item-competence">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" class="icone-langage" alt="Figma">
+                        Figma
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="projets" class="section">
+        <h2 class="titre-section">Projets Stellaires</h2>
+        <div class="grille-projets">
+            <div class="carte-projet">
+                <div class="image-projet" style="background-image:  url('campement-buhanor-cap-skirring.jpg') ;"></div>
+                <div class="contenu-projet">
+                    <h3 class="titre-projet">Campement Buhanor</h3>
+                    <p>
+                        <strong>L'objectif :</strong> Créer une présence en ligne élégante pour cet hôtel de Cap Skirring et attirer une clientèle internationale.
+                    </p>
+                    <p>
+                        <strong>L'impact :</strong> L'établissement peut désormais toucher une audience plus large et ses clients profitent d'une expérience de navigation fluide.
+                    </p>
+                    <div class="technos-projet">
+                        <span class="badge-techno">HTML5</span>
+                        <span class="badge-techno">CSS3</span>
+                        <span class="badge-techno">JavaScript</span>
+                        <span class="badge-techno">PHP</span>
+                    </div>
+                    <div class="liens-projet">
+                        <a href="https://buhanor-test.netlify.app" target="_blank" class="lien-projet">
+                            <i class="fas fa-external-link-alt"></i> Visiter
+                        </a>
+                        <a href="https://github.com/Django-Dieme" target="_blank" class="lien-projet">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carte-projet">
+                <div class="image-projet" style="background-image: url('https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');"></div>
+                <div class="contenu-projet">
+                    <h3 class="titre-projet">Sama Vélo</h3>
+                    <p>
+                        <strong>L'objectif :</strong> Développer une plateforme collaborative pour promouvoir le cyclisme au Sénégal.
+                    </p>
+                    <p>
+                        <strong>L'impact :</strong> J'ai aidé à créer une communauté en ligne et à faciliter l'accès à la pratique du cyclisme.
+                    </p>
+                    <div class="technos-projet">
+                        <span class="badge-techno">JavaScript</span>
+                        <span class="badge-techno">PHP</span>
+                    </div>
+                    <div class="liens-projet">
+                        <a href="https://www.samavelo.com" target="_blank" class="lien-projet">
+                            <i class="fas fa-external-link-alt"></i> Visiter
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carte-projet">
+                <div class="image-projet" style="background-image: url('https://images.unsplash.com/photo-1605152276897-4f618f831968?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');"></div>
+                <div class="contenu-projet">
+                    <h3 class="titre-projet">Sama-Woyofal</h3>
+                    <p>
+                        <strong>L'objectif :</strong> Améliorer l'efficacité de la gestion des compteurs pour une entreprise.
+                    </p>
+                    <p>
+                        <strong>L'impact :</strong> Une meilleure productivité et une diminution significative des erreurs dans la gestion quotidienne.
+                    </p>
+                    <div class="technos-projet">
+                        <span class="badge-techno">JavaScript</span>
+                        <span class="badge-techno">HTML5</span>
+                        <span class="badge-techno">CSS3</span>
+                        <span class="badge-techno">UX/UI</span>
+                    </div>
+                    <div class="liens-projet">
+                        <a href="https://github.com/Django-Dieme" target="_blank" class="lien-projet">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2 class="titre-section">Contact Interstellaire</h2>
+        <p style="text-align: center; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Prêt à lancer votre projet dans l'espace numérique ? Contactez-moi pour discuter de votre vision.
+        </p>
+        <div class="conteneur-contact">
+            <div class="infos-contact">
+                <div class="item-contact">
+                    <i class="fas fa-phone icone-contact"></i>
+                    <div>
+                        <h4>Téléphone</h4>
+                        <p>+221 76 153 49 94</p>
+                    </div>
+                </div>
+                <div class="item-contact">
+                    <i class="fas fa-envelope icone-contact"></i>
+                    <div>
+                        <h4>Email</h4>
+                        <p>kingfamra13@gmail.com</p>
+                    </div>
+                </div>
+                <div class="item-contact">
+                    <i class="fas fa-map-marker-alt icone-contact"></i>
+                    <div>
+                        <h4>Localisation</h4>
+                        <p>Dakar, Sénégal</p>
+                    </div>
+                </div>
+                 <div class="item-contact">
+                    <i class="fab fa-github icone-contact"></i>
+                    <div>
+                        <h4>Github</h4>
+                        <p> https://github.com/Diango-Dieme </p>
+                    </div>
+                </div>
+                <div class="item-contact">
+                    <i class="fab fa-linkedin icone-contact"></i>
+                    <div>
+                        <h4>LinkedIn</h4>
+                        <p> diango-famara-dieme </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulaire Netlify -->
+            <form name="contact" method="POST" data-netlify="true" class="formulaire-contact">
+                <input type="hidden" name="form-name" value="contact">
+                <div class="groupe-formulaire">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                <div class="groupe-formulaire">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="groupe-formulaire">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="bouton-envoyer">
+                    <i class="fas fa-paper-plane"></i> Envoyer
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // Création des étoiles
+        function creerEtoiles() {
+            const espace = document.getElementById('espace');
+            const count = 200;
+            
+            for (let i = 0; i < count; i++) {
+                const etoile = document.createElement('div');
+                etoile.className = 'etoile';
+                
+                // Position aléatoire
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                
+                // Taille aléatoire
+                const size = Math.random() * 3;
+                
+                // Durée d'animation aléatoire
+                const duration = Math.random() * 5 + 3;
+                
+                etoile.style.left = `${x}%`;
+                etoile.style.top = `${y}%`;
+                etoile.style.width = `${size}px`;
+                etoile.style.height = `${size}px`;
+                etoile.style.animationDuration = `${duration}s`;
+                
+                espace.appendChild(etoile);
+            }
+        }
+
+        // Menu Burger
+        const burger = document.getElementById('burger');
+        const menu = document.getElementById('menuPrincipal');
+
+        burger.addEventListener('click', () => {
+            menu.classList.toggle('actif');
+        });
+
+        // Animation au scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.categorie-competence, .carte-projet, .item-contact, .formulaire-contact').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Gestion du formulaire
+        const formulaire = document.querySelector('.formulaire-contact');
+        formulaire.addEventListener('submit', function(e) {
+            // Netlify gère l'envoi,
+            const nom = document.getElementById('nom').value;
+            const email = document.getElementById('email').value;
+            
+            if (nom.trim() === '' || email.trim() === '') {
+                e.preventDefault();
+                alert('Veuillez remplir tous les champs requis');
+            }
+        });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            creerEtoiles();
+        });
+    </script>
+</body>
+</html>

@@ -44,6 +44,7 @@
             background-color: white;
             border-radius: 50%;
             animation: scintiller infinite alternate;
+            will-change: transform;
         }
 
         @keyframes scintiller {
@@ -63,6 +64,12 @@
             z-index: 1000;
             background-color: rgba(10, 14, 23, 0.8);
             backdrop-filter: blur(5px);
+            transition: var(--transition);
+        }
+
+        .navigation.scrolled {
+            padding: 0.5rem 5vw;
+            background-color: rgba(10, 14, 23, 0.9);
         }
 
         .logo {
@@ -70,6 +77,7 @@
             font-weight: 700;
             font-size: 1.8rem;
             text-shadow: 0 0 10px var(--bleu-neon);
+            transition: var(--transition);
         }
 
         .menu {
@@ -112,6 +120,12 @@
             cursor: pointer;
             color: var(--blanc-cosmos);
             font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .menu-burger:hover {
+            color: var(--bleu-neon);
+            transform: scale(1.1);
         }
 
         /* Hero Spatial */
@@ -122,6 +136,18 @@
             align-items: center;
             position: relative;
             overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(100, 248, 255, 0.1) 0%, transparent 70%);
+            z-index: 1;
+            opacity: 0.5;
         }
 
         .contenu-hero {
@@ -135,12 +161,14 @@
             margin-bottom: 1.5rem;
             color: var(--bleu-neon);
             text-shadow: 0 0 15px var(--bleu-neon);
+            line-height: 1.2;
         }
 
         .hero-sous-titre {
             font-size: clamp(1.5rem, 3vw, 2.5rem);
             margin-bottom: 1rem;
             color: var(--blanc-cosmos);
+            font-weight: 300;
         }
 
         .hero-description {
@@ -162,6 +190,8 @@
             font-weight: bold;
             transition: var(--transition);
             box-shadow: 0 0 15px rgba(100, 248, 255, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
         .bouton-cta:hover {
@@ -170,12 +200,38 @@
             transform: translateY(-3px);
         }
 
+        .bouton-cta::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 248, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .bouton-cta:hover::after {
+            left: 100%;
+        }
+
         /* Sections */
         .section {
             padding: 8rem 5vw;
             position: relative;
             background-color: rgba(10, 14, 23, 0.7);
             backdrop-filter: blur(5px);
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 30%, rgba(100, 248, 255, 0.05) 0%, transparent 50%);
+            pointer-events: none;
         }
 
         .titre-section {
@@ -201,6 +257,7 @@
             line-height: 1.8;
             color: var(--blanc-cosmos);
             opacity: 0.9;
+            max-width: 800px;
         }
 
         /* Compétences */
@@ -217,12 +274,32 @@
             border-radius: 10px;
             border: 1px solid rgba(100, 248, 255, 0.1);
             transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .categorie-competence::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(100, 248, 255, 0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+            transition: var(--transition);
+            opacity: 0;
         }
 
         .categorie-competence:hover {
             transform: translateY(-10px);
             border-color: var(--bleu-neon);
             box-shadow: 0 10px 30px rgba(100, 248, 255, 0.2);
+        }
+
+        .categorie-competence:hover::before {
+            opacity: 1;
+            transform: rotate(0deg);
         }
 
         .titre-categorie {
@@ -245,12 +322,23 @@
             gap: 0.8rem;
             padding: 0.5rem 0;
             border-bottom: 1px dashed rgba(100, 248, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .item-competence:hover {
+            transform: translateX(5px);
         }
 
         .icone-langage {
             width: 24px;
             height: 24px;
             filter: drop-shadow(0 0 5px var(--bleu-neon));
+            transition: var(--transition);
+        }
+
+        .item-competence:hover .icone-langage {
+            filter: drop-shadow(0 0 10px var(--bleu-neon));
+            transform: scale(1.1);
         }
 
         /* Projets */
@@ -291,6 +379,7 @@
             background-size: cover;
             background-position: center;
             position: relative;
+            background-color: var(--bleu-galaxie);
         }
 
         .image-projet::after {
@@ -337,6 +426,12 @@
             border-radius: 20px;
             font-size: 0.8rem;
             border: 1px solid var(--bleu-neon);
+            transition: var(--transition);
+        }
+
+        .badge-techno:hover {
+            background: rgba(100, 248, 255, 0.3);
+            transform: translateY(-2px);
         }
 
         .liens-projet {
@@ -353,11 +448,27 @@
             gap: 0.5rem;
             transition: var(--transition);
             text-shadow: 0 0 5px var(--bleu-neon);
+            position: relative;
+        }
+
+        .lien-projet::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--bleu-neon);
+            transition: var(--transition);
         }
 
         .lien-projet:hover {
             color: var(--blanc-cosmos);
             text-shadow: 0 0 10px var(--bleu-neon);
+        }
+
+        .lien-projet:hover::after {
+            width: 100%;
         }
 
         /* Contact */
@@ -388,12 +499,18 @@
         .item-contact:hover {
             border-color: var(--bleu-neon);
             box-shadow: 0 0 20px rgba(100, 248, 255, 0.2);
+            transform: translateY(-5px);
         }
 
         .icone-contact {
             font-size: 1.5rem;
             color: var(--bleu-neon);
             text-shadow: 0 0 10px var(--bleu-neon);
+            transition: var(--transition);
+        }
+
+        .item-contact:hover .icone-contact {
+            transform: scale(1.2);
         }
 
         .formulaire-contact {
@@ -401,6 +518,12 @@
             padding: 2rem;
             border-radius: 10px;
             border: 1px solid rgba(100, 248, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .formulaire-contact:hover {
+            border-color: var(--bleu-neon);
+            box-shadow: 0 0 30px rgba(100, 248, 255, 0.1);
         }
 
         .groupe-formulaire {
@@ -445,11 +568,36 @@
             align-items: center;
             gap: 0.5rem;
             margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
         }
 
         .bouton-envoyer:hover {
             background: rgba(100, 248, 255, 0.1);
             box-shadow: 0 0 20px rgba(100, 248, 255, 0.3);
+        }
+
+        .bouton-envoyer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 248, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .bouton-envoyer:hover::after {
+            left: 100%;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(10, 14, 23, 0.9);
+            border-top: 1px solid rgba(100, 248, 255, 0.1);
         }
 
         /* Responsive */
@@ -464,6 +612,7 @@
                 padding: 2rem;
                 transition: var(--transition);
                 border-top: 1px solid var(--bleu-neon);
+                z-index: 999;
             }
 
             .menu.actif {
@@ -477,13 +626,31 @@
             .conteneur-contact {
                 grid-template-columns: 1fr;
             }
+
+            .hero {
+                padding-top: 80px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grille-projets {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-titre {
+                font-size: 2.2rem;
+            }
+
+            .hero-sous-titre {
+                font-size: 1.3rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="espace" id="espace"></div>
 
-    <nav class="navigation">
+    <nav class="navigation" id="navigation">
         <div class="logo">DFD</div>
         <div class="menu" id="menuPrincipal">
             <a href="#apropos" class="menu-lien">À Propos</a>
@@ -527,7 +694,7 @@
             </p>
         </div>
 
-        <h3  class="titre-section" style="margin-top: 4rem;">Mes Compétences</h3>
+        <h3 class="titre-section" style="margin-top: 4rem;">Mes Compétences</h3>
         <div class="grille-competences">
             <div class="categorie-competence">
                 <h4 class="titre-categorie">
@@ -608,7 +775,7 @@
         <h2 class="titre-section">Projets Stellaires</h2>
         <div class="grille-projets">
             <div class="carte-projet">
-                <div class="image-projet" style="background-image:  url('campement-buhanor-cap-skirring.jpg') ;"></div>
+                <div class="image-projet" style="background-image: url('campement-buhanor-cap-skirring.jpg');"></div>
                 <div class="contenu-projet">
                     <h3 class="titre-projet">Campement Buhanor</h3>
                     <p>
@@ -714,45 +881,48 @@
                     <i class="fab fa-github icone-contact"></i>
                     <div>
                         <h4>Github</h4>
-                        <p> https://github.com/Diango-Dieme </p>
+                        <p>https://github.com/Diango-Dieme</p>
                     </div>
                 </div>
                 <div class="item-contact">
                     <i class="fab fa-linkedin icone-contact"></i>
                     <div>
                         <h4>LinkedIn</h4>
-                        <p> diango-famara-dieme </p>
+                        <p>diango-famara-dieme</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Formulaire Netlify -->
-           <form name="contact" method="POST" data-netlify="true" action="/merci.html" class="formulaire-contact">
-    <input type="hidden" name="form-name" value="contact">
-    <div class="groupe-formulaire">
-        <label for="nom">Nom</label>
-        <input type="text" id="nom" name="nom" required>
-    </div>
-    <div class="groupe-formulaire">
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-    </div>
-    <div class="groupe-formulaire">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
-    </div>
-    <button type="submit" class="bouton-envoyer">
-        <i class="fas fa-paper-plane"></i> Envoyer
-    </button>
-</form>
+            <form name="contact" method="POST" data-netlify="true" action="/merci.html" class="formulaire-contact">
+                <input type="hidden" name="form-name" value="contact">
+                <div class="groupe-formulaire">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                <div class="groupe-formulaire">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="groupe-formulaire">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="bouton-envoyer">
+                    <i class="fas fa-paper-plane"></i> Envoyer
+                </button>
+            </form>
         </div>
     </section>
+
+    <footer>
+        <p>&copy; 2025 Diango - Tous droits réservés</p>
+    </footer>
 
     <script>
         // Création des étoiles
         function creerEtoiles() {
             const espace = document.getElementById('espace');
-            const count = 200;
+            const count = 300;
             
             for (let i = 0; i < count; i++) {
                 const etoile = document.createElement('div');
@@ -768,11 +938,15 @@
                 // Durée d'animation aléatoire
                 const duration = Math.random() * 5 + 3;
                 
+                // Délai aléatoire
+                const delay = Math.random() * 5;
+                
                 etoile.style.left = `${x}%`;
                 etoile.style.top = `${y}%`;
                 etoile.style.width = `${size}px`;
                 etoile.style.height = `${size}px`;
                 etoile.style.animationDuration = `${duration}s`;
+                etoile.style.animationDelay = `${delay}s`;
                 
                 espace.appendChild(etoile);
             }
@@ -784,6 +958,17 @@
 
         burger.addEventListener('click', () => {
             menu.classList.toggle('actif');
+            burger.classList.toggle('actif');
+        });
+
+        // Navigation au scroll
+        const navigation = document.getElementById('navigation');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navigation.classList.add('scrolled');
+            } else {
+                navigation.classList.remove('scrolled');
+            }
         });
 
         // Animation au scroll
@@ -796,14 +981,77 @@
             });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('.categorie-competence, .carte-projet, .item-contact, .formulaire-contact').forEach(el => {
+        // Appliquer les animations à tous les éléments concernés
+        document.querySelectorAll(
+            '.categorie-competence, .carte-projet, .item-contact, .formulaire-contact, ' +
+            '.contenu-hero > *, .texte-a-propos p, .titre-section'
+        ).forEach((el, index) => {
             el.style.opacity = 0;
             el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.6s ease';
+            el.style.transition = `all 0.6s ease ${index * 0.1}s`;
             observer.observe(el);
         });
 
-     
+        // Défilement fluide pour les liens d'ancrage
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Fermer le menu burger si ouvert
+                    if (menu.classList.contains('actif')) {
+                        menu.classList.remove('actif');
+                        burger.classList.remove('actif');
+                    }
+                }
+            });
+        });
+
+        // Effet de lumière sur les cartes projet
+        document.querySelectorAll('.carte-projet').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Validation du formulaire
+        const form = document.querySelector('.formulaire-contact');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                const email = form.querySelector('#email');
+                if (!email.value.includes('@')) {
+                    e.preventDefault();
+                    email.style.borderColor = 'red';
+                    setTimeout(() => {
+                        email.style.borderColor = 'var(--bleu-galaxie)';
+                    }, 2000);
+                }
+            });
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            creerEtoiles();
+            
+            // Animation des étoiles au scroll
+            const etoiles = document.querySelectorAll('.etoile');
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                etoiles.forEach(etoile => {
+                    const speed = parseFloat(etoile.style.animationDuration) / 10;
+                    etoile.style.transform = `translateY(${scrollY * speed}px)`;
+                });
+            });
+        });
     </script>
 </body>
 </html>

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diango FD | Développeur Stellar</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <style>
         :root {
             --espace-noir: #0a0e17;
@@ -72,13 +74,11 @@
             background-color: rgba(10, 14, 23, 0.9);
         }
 
-        .logo {
-            color: var(--bleu-neon);
-            font-weight: 700;
-            font-size: 1.8rem;
-            text-shadow: 0 0 10px var(--bleu-neon);
-            transition: var(--transition);
-        }
+        .navigation img{
+  width: 100px; /* Taille du logo dans la nav */
+  height: auto;
+  margin-left: 10px; 
+}
 
         .menu {
             display: flex;
@@ -470,6 +470,90 @@
         .lien-projet:hover::after {
             width: 100%;
         }
+         /* Nouvelle section CV */
+        .section-cv {
+            padding: 5rem 5vw;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(18, 44, 79, 0.5) 0%, rgba(10, 14, 23, 0.8) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-cv::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(100, 248, 255, 0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .conteneur-cv {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .titre-cv {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            color: var(--bleu-neon);
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px var(--bleu-neon);
+        }
+
+        .texte-cv {
+            color: var(--blanc-cosmos);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .bouton-cv {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: rgba(100, 248, 255, 0.1);
+            color: var(--bleu-neon);
+            border: 1px solid var(--bleu-neon);
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            box-shadow: 0 0 15px rgba(100, 248, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bouton-cv:hover {
+            background: rgba(100, 248, 255, 0.2);
+            box-shadow: 0 0 30px rgba(100, 248, 255, 0.6);
+            transform: translateY(-3px);
+        }
+
+        .bouton-cv::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 248, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .bouton-cv:hover::before {
+            left: 100%;
+        }
 
         /* Contact */
         .conteneur-contact {
@@ -651,7 +735,7 @@
     <div class="espace" id="espace"></div>
 
     <nav class="navigation" id="navigation">
-        <div class="logo">DFD</div>
+      <a href="#" class="brand-logo"> <img src="10.Jpg" >  </a> 
         <div class="menu" id="menuPrincipal">
             <a href="#apropos" class="menu-lien">À Propos</a>
             <a href="#competences" class="menu-lien">Compétences</a>
@@ -726,6 +810,10 @@
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" class="icone-langage" alt="PHP">
                         PHP
                     </li>
+                     <li class="item-competence">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="icone-langage" alt="python">
+                        PYTHON
+                    </li>
                     <li class="item-competence">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" class="icone-langage" alt="MySQL">
                         MySQL
@@ -758,6 +846,7 @@
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="icone-langage" alt="Git">
                         Git/GitHub
                     </li>
+                  
                     <li class="item-competence">
                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" class="icone-langage" alt="VS Code">
                         VS Code
@@ -828,10 +917,10 @@
                 <div class="contenu-projet">
                     <h3 class="titre-projet">Sama-Woyofal</h3>
                     <p>
-                        <strong>L'objectif :</strong> Améliorer l'efficacité de la gestion des compteurs pour une entreprise.
+                        <strong>L'objectif :</strong> Améliorer l'efficacité de la gestion des compteurs pour les domestiques.
                     </p>
                     <p>
-                        <strong>L'impact :</strong> Une meilleure productivité et une diminution significative des erreurs dans la gestion quotidienne.
+                        <strong>L'impact :</strong> Permet aux utilisateurs d'optimiser leur consommation d'électricité pour rester dans la première tranche tarifaire, réduisant ainsi leur facture et réalisant des économies significatives.
                     </p>
                     <div class="technos-projet">
                         <span class="badge-techno">JavaScript</span>
@@ -846,6 +935,21 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section id="cv" class="section-cv">
+        <div class="conteneur-cv">
+            <h2 class="titre-cv">
+                <i class="fas fa-file-download"></i> Mon Curriculum Vitae
+            </h2>
+            <p class="texte-cv">
+                Vous souhaitez en savoir plus sur mon parcours professionnel et mes compétences techniques ? 
+                Téléchargez mon CV complet au format PDF pour avoir toutes les informations à portée de main.
+            </p>
+            <a href="cv-de-Diango.pdf" download="CV_Diango_Famara_Dieme.pdf" class="bouton-cv">
+                <i class="fas fa-cloud-download-alt"></i> Télécharger mon CV
+            </a>
         </div>
     </section>
 
@@ -980,17 +1084,32 @@
                 }
             });
         }, { threshold: 0.1 });
-
-        // Appliquer les animations à tous les éléments concernés
-        document.querySelectorAll(
-            '.categorie-competence, .carte-projet, .item-contact, .formulaire-contact, ' +
-            '.contenu-hero > *, .texte-a-propos p, .titre-section'
+         // Appliquer les animations à tous les éléments concernés
+          document.querySelectorAll(
+        '.categorie-competence, .carte-projet, .item-contact, .formulaire-contact, ' +
+        '.section-cv, .contenu-hero > *, .texte-a-propos p, .titre-section'
         ).forEach((el, index) => {
-            el.style.opacity = 0;
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = `all 0.6s ease ${index * 0.1}s`;
-            observer.observe(el);
+        el.style.opacity = 0;
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = `all 0.6s ease ${index * 0.1}s`;
+        observer.observe(el);
         });
+        // Animation de la section CV et de ses éléments enfants
+        const sectionCv = document.querySelector('.section-cv');
+        if (sectionCv) {
+        sectionCv.style.opacity = 0;
+        sectionCv.style.transform = 'translateY(30px)';
+        sectionCv.style.transition = 'all 0.6s ease';
+        observer.observe(sectionCv);
+
+        // Animation des enfants avec délai progressif
+        sectionCv.querySelectorAll('.conteneur-cv > *').forEach((el, index) => {
+        el.style.opacity = 0;
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = `all 0.6s ease ${index * 0.2 + 0.3}s`;
+        observer.observe(el);
+        });
+        }
 
         // Défilement fluide pour les liens d'ancrage
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {

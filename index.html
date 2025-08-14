@@ -13,7 +13,7 @@
             --bleu-neon: #64f8ff;
             --bleu-galaxie: #122C4F;
             --blanc-cosmos: #e6f1ff;
-            --transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+            --transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
         }
 
         * {
@@ -75,10 +75,10 @@
         }
 
         .navigation img{
-  width: 130px; /* Taille du logo dans la nav */
-  height: auto;
-  margin-left: 10px; 
-}
+          width: 130px; /* Taille du logo dans la nav */
+          height: auto;
+          margin-left: 10px; 
+        }
 
         .menu {
             display: flex;
@@ -1103,7 +1103,7 @@
         sectionCv.style.transition = 'all 0.6s ease';
         observer.observe(sectionCv);
 
-        // Animation des enfants avec délai progressif
+        // Animation avec délai progressif
         sectionCv.querySelectorAll('.conteneur-cv > *').forEach((el, index) => {
         el.style.opacity = 0;
         el.style.transform = 'translateY(20px)';
